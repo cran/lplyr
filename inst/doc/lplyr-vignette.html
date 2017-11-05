@@ -4,14 +4,14 @@
 
 <head>
 
-<meta charset="utf-8">
+<meta charset="utf-8" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 
-<meta name="date" content="2017-01-25" />
+<meta name="date" content="2017-11-04" />
 
 <title>Dplyr verbs for lists and other verbs for data frames</title>
 
@@ -68,60 +68,36 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 
 <h1 class="title toc-ignore">Dplyr verbs for lists and other verbs for data frames</h1>
-<h4 class="date"><em>2017-01-25</em></h4>
+<h4 class="date"><em>2017-11-04</em></h4>
 
 
 
 <div id="verbs-for-lists-and-pairlists" class="section level2">
 <h2>Verbs for lists and pairlists</h2>
 <p>The package ‘lplyr’ extends some dplyr verbs to lists and pairlists:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">xs &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">x1 =</span> <span class="dv">1</span>:<span class="dv">3</span>, 
-           <span class="dt">x2 =</span> <span class="dv">2</span>:<span class="dv">5</span>, 
-           <span class="dt">x3 =</span> <span class="st">&quot;alpha&quot;</span>)
-           
-<span class="kw">mutate</span>(xs, <span class="dt">x4 =</span> <span class="dv">4</span>) %&gt;%<span class="st"> </span>str
-<span class="co">#&gt; List of 4</span>
-<span class="co">#&gt;  $ x1: int [1:3] 1 2 3</span>
-<span class="co">#&gt;  $ x2: int [1:4] 2 3 4 5</span>
-<span class="co">#&gt;  $ x3: chr &quot;alpha&quot;</span>
-<span class="co">#&gt;  $ x4: num 4</span>
-<span class="kw">rename</span>(xs, <span class="dt">x0 =</span> x1) %&gt;%<span class="st"> </span>str
-<span class="co">#&gt; List of 3</span>
-<span class="co">#&gt;  $ x0: int [1:3] 1 2 3</span>
-<span class="co">#&gt;  $ x2: int [1:4] 2 3 4 5</span>
-<span class="co">#&gt;  $ x3: chr &quot;alpha&quot;</span>
-<span class="kw">select</span>(xs, -x3) %&gt;%<span class="st"> </span>str
-<span class="co">#&gt; List of 2</span>
-<span class="co">#&gt;  $ x1: int [1:3] 1 2 3</span>
-<span class="co">#&gt;  $ x2: int [1:4] 2 3 4 5</span>
-<span class="kw">transmute</span>(xs, <span class="dt">x5 =</span> <span class="dv">5</span>) %&gt;%<span class="st"> </span>str
-<span class="co">#&gt; List of 1</span>
-<span class="co">#&gt;  $ x5: num 5</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">xs &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">x1 =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, 
+           <span class="dt">x2 =</span> <span class="dv">2</span><span class="op">:</span><span class="dv">5</span>, 
+           <span class="dt">x3 =</span> <span class="st">&quot;alpha&quot;</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mutate</span>(xs, <span class="dt">x4 =</span> <span class="dv">4</span>) <span class="op">%&gt;%</span><span class="st"> </span>str
+<span class="kw">rename</span>(xs, <span class="dt">x0 =</span> x1) <span class="op">%&gt;%</span><span class="st"> </span>str</code></pre></div>
 <p>Usual verbs made for standard evaluation work as well:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mutate_</span>(xs, <span class="dt">x4 =</span> ~<span class="st"> </span><span class="dv">4</span>) %&gt;%<span class="st"> </span>str
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mutate_</span>(xs, <span class="dt">x4 =</span> <span class="op">~</span><span class="st"> </span><span class="dv">4</span>) <span class="op">%&gt;%</span><span class="st"> </span>str
 <span class="co">#&gt; List of 4</span>
 <span class="co">#&gt;  $ x1: int [1:3] 1 2 3</span>
 <span class="co">#&gt;  $ x2: int [1:4] 2 3 4 5</span>
 <span class="co">#&gt;  $ x3: chr &quot;alpha&quot;</span>
 <span class="co">#&gt;  $ x4: num 4</span>
-<span class="kw">rename_</span>(xs, <span class="dt">x0 =</span> ~<span class="st"> </span>x1) %&gt;%<span class="st"> </span>str
+<span class="kw">rename_</span>(xs, <span class="dt">x0 =</span> <span class="op">~</span><span class="st"> </span>x1) <span class="op">%&gt;%</span><span class="st"> </span>str
 <span class="co">#&gt; List of 3</span>
 <span class="co">#&gt;  $ x0: int [1:3] 1 2 3</span>
 <span class="co">#&gt;  $ x2: int [1:4] 2 3 4 5</span>
-<span class="co">#&gt;  $ x3: chr &quot;alpha&quot;</span>
-<span class="kw">select_</span>(xs, ~<span class="st"> </span>(-x3)) %&gt;%<span class="st"> </span>str
-<span class="co">#&gt; List of 2</span>
-<span class="co">#&gt;  $ x1: int [1:3] 1 2 3</span>
-<span class="co">#&gt;  $ x2: int [1:4] 2 3 4 5</span>
-<span class="kw">transmute_</span>(xs, <span class="dt">x5 =</span> ~<span class="st"> </span><span class="dv">5</span>) %&gt;%<span class="st"> </span>str
-<span class="co">#&gt; List of 1</span>
-<span class="co">#&gt;  $ x5: num 5</span></code></pre></div>
+<span class="co">#&gt;  $ x3: chr &quot;alpha&quot;</span></code></pre></div>
 </div>
 <div id="new-verbs-for-data-frames" class="section level2">
 <h2>New verbs for data frames</h2>
 <p>The <code>mutate_which</code> and <code>transmute_which</code> functions are made for adding new variables or modifying existing ones on a subset of the data.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df &lt;-<span class="st"> </span>mtcars[<span class="dv">1</span>:<span class="dv">6</span>,]
-<span class="kw">mutate_which</span>(df, gear==<span class="dv">4</span>, <span class="dt">carb =</span> <span class="dv">100</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df &lt;-<span class="st"> </span>mtcars[<span class="dv">1</span><span class="op">:</span><span class="dv">6</span>,]
+<span class="kw">mutate_which</span>(df, gear<span class="op">==</span><span class="dv">4</span>, <span class="dt">carb =</span> <span class="dv">100</span>)
 <span class="co">#&gt;                    mpg cyl disp  hp drat    wt  qsec vs am gear carb</span>
 <span class="co">#&gt; Mazda RX4         21.0   6  160 110 3.90 2.620 16.46  0  1    4  100</span>
 <span class="co">#&gt; Mazda RX4 Wag     21.0   6  160 110 3.90 2.875 17.02  0  1    4  100</span>
@@ -129,7 +105,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <span class="co">#&gt; Hornet 4 Drive    21.4   6  258 110 3.08 3.215 19.44  1  0    3    1</span>
 <span class="co">#&gt; Hornet Sportabout 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2</span>
 <span class="co">#&gt; Valiant           18.1   6  225 105 2.76 3.460 20.22  1  0    3    1</span>
-<span class="kw">transmute_which</span>(df, gear==<span class="dv">4</span>, <span class="dt">carb =</span> <span class="dv">100</span>)
+<span class="kw">transmute_which</span>(df, gear<span class="op">==</span><span class="dv">4</span>, <span class="dt">carb =</span> <span class="dv">100</span>)
 <span class="co">#&gt;                   carb</span>
 <span class="co">#&gt; Mazda RX4          100</span>
 <span class="co">#&gt; Mazda RX4 Wag      100</span>
@@ -138,7 +114,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <span class="co">#&gt; Hornet Sportabout    2</span>
 <span class="co">#&gt; Valiant              1</span></code></pre></div>
 <p>There is also a standard evaluation version of these functions, called <code>mutate_which_</code> and <code>transmute_which_</code>:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mutate_which_</span>(df, ~<span class="st"> </span>gear==<span class="dv">4</span>, <span class="dt">carb =</span> ~<span class="st"> </span><span class="dv">100</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mutate_which_</span>(df, <span class="op">~</span><span class="st"> </span>gear<span class="op">==</span><span class="dv">4</span>, <span class="dt">carb =</span> <span class="op">~</span><span class="st"> </span><span class="dv">100</span>)
 <span class="co">#&gt;                    mpg cyl disp  hp drat    wt  qsec vs am gear carb</span>
 <span class="co">#&gt; Mazda RX4         21.0   6  160 110 3.90 2.620 16.46  0  1    4  100</span>
 <span class="co">#&gt; Mazda RX4 Wag     21.0   6  160 110 3.90 2.875 17.02  0  1    4  100</span>
@@ -146,7 +122,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <span class="co">#&gt; Hornet 4 Drive    21.4   6  258 110 3.08 3.215 19.44  1  0    3    1</span>
 <span class="co">#&gt; Hornet Sportabout 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2</span>
 <span class="co">#&gt; Valiant           18.1   6  225 105 2.76 3.460 20.22  1  0    3    1</span>
-<span class="kw">transmute_which_</span>(df, ~<span class="st"> </span>gear==<span class="dv">4</span>, <span class="dt">carb =</span> ~<span class="st"> </span><span class="dv">100</span>)
+<span class="kw">transmute_which_</span>(df, <span class="op">~</span><span class="st"> </span>gear<span class="op">==</span><span class="dv">4</span>, <span class="dt">carb =</span> <span class="op">~</span><span class="st"> </span><span class="dv">100</span>)
 <span class="co">#&gt;                   carb</span>
 <span class="co">#&gt; Mazda RX4          100</span>
 <span class="co">#&gt; Mazda RX4 Wag      100</span>
@@ -157,12 +133,12 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>The function <code>pull</code> selects a column in a data frame and transforms it into a vector. This is useful to use it in combination with magrittr’s pipe operator and dplyr’s verbs.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df[[<span class="st">&quot;mpg&quot;</span>]]
 <span class="co">#&gt; [1] 21.0 21.0 22.8 21.4 18.7 18.1</span>
-df %&gt;%<span class="st"> </span><span class="kw">pull</span>(mpg)
+df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">pull</span>(mpg)
 <span class="co">#&gt; [1] 21.0 21.0 22.8 21.4 18.7 18.1</span>
 
 <span class="co"># more convenient than (mtcars %&gt;% filter(mpg &gt; 20))[[3L]]</span>
-df %&gt;%
-<span class="st">  </span><span class="kw">filter</span>(mpg &gt;<span class="st"> </span><span class="dv">20</span>) %&gt;%
+df <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(mpg <span class="op">&gt;</span><span class="st"> </span><span class="dv">20</span>) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">pull</span>(<span class="dv">3</span>)
 <span class="co">#&gt; [1] 160 160 108 258</span></code></pre></div>
 </div>
@@ -174,7 +150,7 @@ df %&gt;%
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
 </script>

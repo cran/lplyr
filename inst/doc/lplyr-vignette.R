@@ -7,17 +7,14 @@ library(lplyr)
 xs <- list(x1 = 1:3, 
            x2 = 2:5, 
            x3 = "alpha")
-           
-mutate(xs, x4 = 4) %>% str
-rename(xs, x0 = x1) %>% str
-select(xs, -x3) %>% str
-transmute(xs, x5 = 5) %>% str
+
+## ---- eval = FALSE-------------------------------------------------------
+#  mutate(xs, x4 = 4) %>% str
+#  rename(xs, x0 = x1) %>% str
 
 ## ------------------------------------------------------------------------
 mutate_(xs, x4 = ~ 4) %>% str
 rename_(xs, x0 = ~ x1) %>% str
-select_(xs, ~ (-x3)) %>% str
-transmute_(xs, x5 = ~ 5) %>% str
 
 ## ------------------------------------------------------------------------
 df <- mtcars[1:6,]

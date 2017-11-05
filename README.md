@@ -1,6 +1,6 @@
 # lplyr: dplyr verbs for lists and other verbs for data frames
 
-[![Travis-CI Build Status](https://travis-ci.org/paulponcet/lplyr.svg?branch=master)](https://travis-ci.org/paulponcet/lplyr)
+[![Travis-CI Build Status](https://travis-ci.org/paulponcet/lplyr.svg?branch=master)](https://travis-ci.org/paulponcet/lplyr) [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/lplyr)](https://cran.r-project.org/package=lplyr) [![](https://cranlogs.r-pkg.org/badges/lplyr)](https://cran.r-project.org/package=lplyr)
 
 
 ## Installation
@@ -25,16 +25,12 @@ xs <- list(x1 = 1:3,
            
 mutate(xs, x4 = 4)
 rename(xs, x0 = x1)
-select(xs, -x3)
-transmute(xs, x5 = 5)
 ```
 Usual verbs made for standard evaluation work as well: 
 
 ```R
 mutate_(xs, x4 = ~ 4)
 rename_(xs, x0 = ~ x1)
-select_(xs, ~ (-x3))
-transmute_(xs, x5 = ~ 5)
 ```
 
 
@@ -70,24 +66,3 @@ mtcars %>%
  filter(mpg > 20) %>%
  pull(3)
 ```
-
-## Chunck 
-
-The function `chunck` is identical to the `partition` function 
-from package 'multidplyr', except that it adds a logical argument 
-`ok`: if `ok=FALSE`, no partition is applied, 
-the input dataset is returned unchanged.
-This is convenient in programming to easily test the benefit of 
-parallelizing or switch from non-parallel to parallel programming. 
-
-```R
-options(parallelize = FALSE)
-
-mtcars %>% 
-  chunck(ok = getOption("parallelize")) %>% 
-  mutate(cyl2 = 2 * cyl) %>% 
-  filter(vs == 1) %>% 
-  summarise(n()) %>% 
-  select(-cyl)
-```
-

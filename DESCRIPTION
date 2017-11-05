@@ -1,8 +1,8 @@
 Package: lplyr
 Type: Package
 Title: 'dplyr' Verbs for Lists and Other Verbs for Data Frames
-Version: 0.1.6
-Date: 2017-01-23
+Version: 0.1.12
+Date: 2017-11-03
 Authors@R: person("Paul", "Poncet", , "paulponcet@yahoo.fr", role = c("aut", "cre"))
 Description: Provides 'dplyr' verbs for lists and other useful 
     verbs for manipulation of data frames. In particular, it includes a 
@@ -17,10 +17,10 @@ Suggests: knitr, rmarkdown, testthat, tidyr
 VignetteBuilder: knitr
 URL: https://github.com/paulponcet/lplyr
 BugReports: https://github.com/paulponcet/lplyr/issues
-RoxygenNote: 5.0.1
+RoxygenNote: 6.0.1
 NeedsCompilation: no
-Packaged: 2017-01-25 08:47:03 UTC; YL1101
+Packaged: 2017-11-04 23:15:41 UTC; YL1101
 Author: Paul Poncet [aut, cre]
 Maintainer: Paul Poncet <paulponcet@yahoo.fr>
 Repository: CRAN
-Date/Publication: 2017-01-25 10:23:19
+Date/Publication: 2017-11-05 04:05:00 UTC
